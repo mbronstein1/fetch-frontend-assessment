@@ -1,5 +1,3 @@
-import { redirect } from 'react-router-dom';
-
 class AuthService {
   getTokenDuration() {
     const storedExpirationDate = localStorage.getItem('expiration');
@@ -19,7 +17,6 @@ class AuthService {
   logout() {
     localStorage.removeItem('user');
     localStorage.removeItem('expiration');
-    return redirect('/');
   }
 
   getUser() {
@@ -27,7 +24,7 @@ class AuthService {
     const tokenDuration = this.getTokenDuration();
 
     if (!user) {
-      return redirect('/');
+      return null;
     }
 
     if (tokenDuration < 0) {
