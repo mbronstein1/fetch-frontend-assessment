@@ -14,7 +14,7 @@ const Layout = () => {
     }
   }, [navigate]);
   return (
-    <Box>
+    <Box sx={{ fontFamily: 'lato, cursive' }}>
       <NavBar />
       <Outlet />
     </Box>

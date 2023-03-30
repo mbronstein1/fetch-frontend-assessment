@@ -1,4 +1,7 @@
+import { Box, Container } from '@mui/material';
 import { useState, useEffect } from 'react';
+import Main from '../components/Main';
+import Sidebar from '../components/Sidebar';
 
 const Home = () => {
   const [dogData, setDogData] = useState([]);
@@ -37,7 +40,14 @@ const Home = () => {
     fetchDogData();
   });
 
-  return <div>Home</div>;
+  return (
+    <Box sx={{ display: 'flex', flex: '1 1 auto', textAlign: 'center', p: 5, gap: '1rem' }}>
+      <Sidebar />
+      <Container>
+        <Main />
+      </Container>
+    </Box>
+  );
 };
 
 export default Home;
