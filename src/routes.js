@@ -7,7 +7,7 @@ import Auth from './utils/auth';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path='/' element={Auth.getUser() ? <Navigate to='/dogs' replace /> : <Login />} />
+      <Route path='/' element={<Login />} />
       <Route path='/dogs' element={<Layout />}>
         <Route index={true} element={<Home />} />
       </Route>

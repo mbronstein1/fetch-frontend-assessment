@@ -1,19 +1,27 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Container, Typography, FormControl, InputLabel, Input, InputAdornment, Button, useMediaQuery } from '@mui/material';
 import { AccountCircleOutlined, EmailOutlined } from '@mui/icons-material';
 import React from 'react';
 import logo_primary from '../assets/fetch-logo.gif';
 import Overlay from '../components/Overlay';
 import Video from '../components/Video';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, redirect } from 'react-router-dom';
 import Auth from '../utils/auth';
 
 const Login = () => {
   const navigate = useNavigate();
+
   const [formState, setFormState] = useState({ name: '', email: '' });
   const [errorState, setErrorState] = useState({ nameError: false, emailError: false });
   const [errorMsg, setErrorMsg] = useState('');
   const isNonMobile = useMediaQuery('(min-width: 360px)');
+
+  useEffect(() => {
+    const user = Auth.getUser();
+    if (user) {
+      navigate('/dogs');
+    }
+  }, [navigate]);
 
   const inputChangeHandler = e => {
     const { name, value } = e.target;
