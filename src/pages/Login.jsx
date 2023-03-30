@@ -70,18 +70,19 @@ const Login = () => {
   return (
     <Box component='main' sx={{ minHeight: '100svh', display: 'flex', alignItems: 'center', position: 'relative', overflow: 'hidden' }}>
       <Container
+        maxWidth='600px'
         sx={{
           textAlign: 'center',
           border: isNonMobile ? '.5px solid black' : 'none',
           borderRadius: isNonMobile ? '1rem' : 'none',
           width: isNonMobile ? '90%' : '100%',
           minHeight: !isNonMobile && '100svh',
-          maxWidth: '500px',
+          maxWidth: '600px',
           padding: '2rem',
           backgroundColor: 'rgba(240, 234, 214, .9)',
         }}>
         <Box component='img' src={logo_primary} alt='Fetch' width={isNonMobile ? '200px' : '300px'} sx={{ mt: isNonMobile ? 1 : 3, mb: 2 }} />
-        <Typography variant={isNonMobile ? 'h3' : 'h4'} component='h1' textAlign='center' color='rgb(0, 0, 128)' sx={{ m: 3 }}>
+        <Typography variant={isNonMobile ? 'h3' : 'h4'} component='h1' textAlign='center' color='rgb(0, 0, 128)' sx={{ m: 3, fontFamily: 'cursive' }}>
           Find Your Best Friend
         </Typography>
         <Box component='form' onSubmit={formSubmitHandler} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
