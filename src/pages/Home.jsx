@@ -1,14 +1,12 @@
 import { useState, useEffect } from 'react';
 
-let breedList;
-
 const Home = () => {
   const [dogData, setDogData] = useState([]);
 
   useEffect(() => {
     const fetchDogData = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_BASE_URL}/dogs/breeds`, {
+        const response = await fetch(`${process.env.REACT_APP_BASE_URL}/dogs/search`, {
           method: 'GET',
           headers: {
             'fetch-api-key': process.env.REACT_APP_API_KEY,
@@ -18,7 +16,19 @@ const Home = () => {
 
         const data = await response.json();
         console.log(data);
-        breedList = data;
+
+        const dogResponse = await fetch(`${process.env.REACT_APP_BASE_URL}/dogs`, {
+          method: 'POST',
+          headers: {
+            'fetch-api-key': process.env.REACT_APP_API_KEY,
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+          body: JSON.stringify(data.resultIds),
+        });
+
+        const dogData = await dogResponse.json();
+        console.log(dogData);
       } catch (err) {
         console.error(err);
       }

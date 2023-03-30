@@ -6,6 +6,7 @@ import logo_primary from '../assets/fetch-logo.gif';
 import Overlay from '../components/Overlay';
 import Video from '../components/Video';
 import { useNavigate } from 'react-router-dom';
+import Auth from '../utils/auth';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -49,6 +50,7 @@ const Login = () => {
         },
         credentials: 'include',
       });
+      Auth.login(formState);
 
       navigate('/dogs');
     } catch (err) {
