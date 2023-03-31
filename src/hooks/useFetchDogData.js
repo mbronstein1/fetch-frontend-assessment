@@ -13,13 +13,13 @@ const useFetchDogData = () => {
     const ageMin = searchParams.get('ageMin');
     const ageMax = searchParams.get('ageMax');
     const size = searchParams.get('size');
-    const sort = searchParams.get('breeds');
-    const from = searchParams.get('breeds');
+    const sort = searchParams.get('sort');
+    const from = searchParams.get('from');
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_BASE_URL}/dogs/search?${breeds && `breeds=${breeds}`}&&${
-          zipCodes && `zipCodes=${zipCodes}&${ageMin && `ageMin=${ageMin}`}&${ageMax && `ageMax=${ageMax}`}`
-        }&${size && `size=${size}&${sort && `sort=${sort}&${from && `from=${from}`}`}`}`,
+        `${process.env.REACT_APP_BASE_URL}/dogs/search?${breeds && `breeds=${breeds}`}&${zipCodes && `zipCodes=${zipCodes}`}&${ageMin && `ageMin=${ageMin}`}&${
+          ageMax && `ageMax=${ageMax}`
+        }&${size && `size=${size}`}&${sort && `sort=${sort}`}&${from && `from=${from}`}`,
         {
           method: 'GET',
           headers: {
@@ -32,7 +32,7 @@ const useFetchDogData = () => {
       if (!response.ok) {
         throw new Error('Failed to execute search fetch!');
       }
-
+      console.log(response);
       const data = await response.json();
       console.log(data);
 
