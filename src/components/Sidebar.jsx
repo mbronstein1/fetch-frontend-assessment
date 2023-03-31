@@ -3,6 +3,9 @@ import { useMediaQuery, Box, Divider, Typography, FormControl, Input, InputLabel
 import RangeSlider from './RangeSlider';
 
 let breedList;
+const resultsPaginationNumber = [5, 10, 15, 20, 25];
+const sortBy = ['age by ascending', 'age by descending', 'name by ascending', 'name by descending'];
+const sortValue = ['age:asc', 'age:desc', 'name:asc', 'name:desc'];
 
 const Sidebar = ({ setSearchParams }) => {
   const [error, setError] = useState(false);
@@ -63,7 +66,7 @@ const Sidebar = ({ setSearchParams }) => {
 
   return (
     <Box component='aside' width={isNonMobile ? '30%' : '100%'} border='1px solid rgb(0, 0, 128)' backgroundColor='rgb(240, 234, 214)' p={1}>
-      <Typography component='h3' variant='h6' color='rgb(0, 0, 128)'>
+      <Typography component='h3' variant='title' color='rgb(0, 0, 128)'>
         Search
       </Typography>
       <Divider />
@@ -89,6 +92,28 @@ const Sidebar = ({ setSearchParams }) => {
           </Typography>
           <RangeSlider value={[searchTerms.ageMin, searchTerms.ageMax]} setSearchTerms={setSearchTerms} />
         </Box>
+
+        <FormControl variant='standard' sx={{ backgroundColor: 'white' }} fullWidth>
+          <InputLabel htmlFor='size'># of Results</InputLabel>
+          <Select name='size' onChange={searchChangeHandler} labelId='size' value={searchTerms.size} label='Size'>
+            {resultsPaginationNumber.map(number => (
+              <MenuItem key={number} value={number}>
+                {number}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl variant='standard' sx={{ backgroundColor: 'white' }} fullWidth>
+          <InputLabel htmlFor='sort'>Sort By</InputLabel>
+          <Select name='sort' onChange={searchChangeHandler} labelId='sort' value={searchTerms.sort} label='Sort'>
+            {sortBy.map((sortItem, i) => (
+              <MenuItem key={sortItem} value={sortValue[i]}>
+                {sortItem}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
         <Button
           variant='contained'
           type='submit'
