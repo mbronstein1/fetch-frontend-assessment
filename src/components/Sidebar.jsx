@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Divider, Typography, FormControl, Input, InputLabel, Button, Select, MenuItem } from '@mui/material';
+import { useMediaQuery, Box, Divider, Typography, FormControl, Input, InputLabel, Button, Select, MenuItem } from '@mui/material';
 import RangeSlider from './RangeSlider';
 
 const Sidebar = () => {
   const [breedList, setBreedList] = useState([]);
+  const isNonMobile = useMediaQuery('(min-width: 580px)');
 
   useEffect(() => {
     const fetchBreedList = async () => {
@@ -26,7 +27,7 @@ const Sidebar = () => {
     fetchBreedList();
   }, []);
   return (
-    <Box component='aside' width='30%' border='1px solid rgb(0, 0, 128)' backgroundColor='rgb(240, 234, 214)' p={5}>
+    <Box component='aside' width={isNonMobile ? '30%' : '100%'} border='1px solid rgb(0, 0, 128)' backgroundColor='rgb(240, 234, 214)' p={1}>
       <Typography component='h3' variant='h6' color='rgb(0, 0, 128)'>
         Search
       </Typography>
@@ -46,7 +47,7 @@ const Sidebar = () => {
           <InputLabel htmlFor='zip'>Zip Code</InputLabel>
           <Input id='zip' name='zip' type='text' pattern='[0-9]*' sx={{ fontSize: '.9rem' }} />
         </FormControl>
-        <Box mt={3} border='1px solid rgb(0, 0, 128)' backgroundColor='white' p={3} borderRadius='1.25rem'>
+        <Box mt={3} width={'100%'} border='1px solid rgb(0, 0, 128)' backgroundColor='white' p={3} borderRadius='1.25rem'>
           <Typography component='p' variant='body1'>
             Age Range
           </Typography>

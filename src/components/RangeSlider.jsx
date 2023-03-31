@@ -14,7 +14,7 @@ const RangeSlider = () => {
   };
 
   return (
-    <Box sx={{ width: 200 }}>
+    <Box>
       <Slider
         sx={{ color: 'rgb(0, 0, 128)' }}
         marks
@@ -23,7 +23,7 @@ const RangeSlider = () => {
         getAriaLabel={() => 'Age range'}
         value={value}
         onChange={handleChange}
-        valueLabelDisplay='on'
+        valueLabelDisplay='auto'
         getAriaValueText={valuetext}
       />
     </Box>

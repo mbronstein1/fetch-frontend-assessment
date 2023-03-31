@@ -14,9 +14,8 @@ const Home = () => {
   }, [fetchDogData]);
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: isNonMobile ? 'row' : 'column', flex: '1 1 auto', textAlign: 'center', p: isNonMobile ? 5 : 1, gap: '1rem' }}>
+    <Box sx={{ display: 'flex', flexDirection: isNonMobile ? 'row' : 'column', flex: '1 1 auto', textAlign: 'center', p: 1, gap: '1rem' }}>
       <Sidebar />
-
       {isLoading && (
         <Typography component='p' variant='h6'>
           Loading...
