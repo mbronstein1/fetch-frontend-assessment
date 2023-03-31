@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 
@@ -8,7 +8,6 @@ const valuetext = value => {
 
 const RangeSlider = ({ value, setSearchTerms }) => {
   const handleChange = (event, newValue) => {
-    console.log(newValue);
     setSearchTerms(prev => ({ ...prev, ageMin: newValue[0], ageMax: newValue[1] }));
   };
 

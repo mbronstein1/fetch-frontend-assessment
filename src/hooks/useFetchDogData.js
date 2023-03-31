@@ -8,7 +8,6 @@ const useFetchDogData = () => {
   const fetchDogData = useCallback(async searchParams => {
     setIsLoading(true);
     setError(null);
-    // const { breeds, zipCodes, ageMin, ageMax, size, from, sort } = searchParams;
     const breeds = searchParams.get('breeds');
     const zipCodes = searchParams.get('zipCodes');
     const ageMin = searchParams.get('ageMin');
@@ -52,7 +51,6 @@ const useFetchDogData = () => {
       }
 
       const dogData = await dogResponse.json();
-      console.log(dogData);
       setDogData(dogData);
     } catch (err) {
       console.error(err);

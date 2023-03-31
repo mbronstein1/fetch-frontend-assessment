@@ -58,7 +58,6 @@ const Sidebar = ({ setSearchParams }) => {
       }
     }
 
-    console.log(searchParams);
     setSearchParams(searchParams);
   };
 
