@@ -1,51 +1,33 @@
-import { Box, Container } from '@mui/material';
-import { useState, useEffect } from 'react';
+import { Box, Container, Typography, useMediaQuery } from '@mui/material';
+import { useEffect, useState } from 'react';
 import Main from '../components/Main';
 import Sidebar from '../components/Sidebar';
+import useFetchDogData from '../hooks/useFetchDogData';
 
 const Home = () => {
-  const [dogData, setDogData] = useState([]);
+  const { isLoading, error, dogData, fetchDogData } = useFetchDogData();
+  const [isFavorite, setIsFavorite] = useState([]);
+  const isNonMobile = useMediaQuery('(min-width: 580px)');
 
   useEffect(() => {
-    const fetchDogData = async () => {
-      try {
-        const response = await fetch(`${process.env.REACT_APP_BASE_URL}/dogs/search`, {
-          method: 'GET',
-          headers: {
-            'fetch-api-key': process.env.REACT_APP_API_KEY,
-          },
-          credentials: 'include',
-        });
-
-        const data = await response.json();
-        console.log(data);
-
-        const dogResponse = await fetch(`${process.env.REACT_APP_BASE_URL}/dogs`, {
-          method: 'POST',
-          headers: {
-            'fetch-api-key': process.env.REACT_APP_API_KEY,
-            'Content-Type': 'application/json',
-          },
-          credentials: 'include',
-          body: JSON.stringify(data.resultIds),
-        });
-
-        const dogData = await dogResponse.json();
-        console.log(dogData);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
     fetchDogData();
-  });
+  }, [fetchDogData]);
 
   return (
-    <Box sx={{ display: 'flex', flex: '1 1 auto', textAlign: 'center', p: 5, gap: '1rem' }}>
+    <Box sx={{ display: 'flex', flexDirection: isNonMobile ? 'row' : 'column', flex: '1 1 auto', textAlign: 'center', p: isNonMobile ? 5 : 1, gap: '1rem' }}>
       <Sidebar />
-      <Container>
-        <Main />
-      </Container>
+
+      {isLoading && (
+        <Typography component='p' variant='h6'>
+          Loading...
+        </Typography>
+      )}
+      {error && !isLoading && (
+        <Typography component='p' variant='h6'>
+          {error}
+        </Typography>
+      )}
+      {!isLoading && !error && dogData && <Main isFavorite={isFavorite} setIsFavorite={setIsFavorite} dogData={dogData} />}
     </Box>
   );
 };
