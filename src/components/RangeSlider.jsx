@@ -6,11 +6,10 @@ const valuetext = value => {
   return `${value} year(s) old`;
 };
 
-const RangeSlider = () => {
-  const [value, setValue] = useState([0, 20]);
-
+const RangeSlider = ({ value, setSearchTerms }) => {
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    console.log(newValue);
+    setSearchTerms(prev => ({ ...prev, ageMin: newValue[0], ageMax: newValue[1] }));
   };
 
   return (

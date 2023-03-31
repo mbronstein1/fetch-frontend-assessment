@@ -21,11 +21,14 @@ const DogCard = ({ isFavorite, setIsFavorite, dogData: { id, age, breed, img, na
         <Typography gutterBottom variant='h5' component='h3'>
           {name}
         </Typography>
-        <Typography variant='body1' color='text.secondary'>
+        <Typography variant='h6' color='text.secondary'>
           {breed}
         </Typography>
-        <Typography variant='body2' color='text.secondary'>
-          {age} {(age = 1 ? 'year old' : 'years old')}
+        <Typography variant='body1' color='text.secondary'>
+          {age} years old
+        </Typography>
+        <Typography variant='body1' color='text.secondary'>
+          <em>Zip Code: {zip_code}</em>
         </Typography>
       </CardContent>
       <CardActions>

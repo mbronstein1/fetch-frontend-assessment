@@ -8,14 +8,27 @@ const useFetchDogData = () => {
   const fetchDogData = useCallback(async searchParams => {
     setIsLoading(true);
     setError(null);
+    // const { breeds, zipCodes, ageMin, ageMax, size, from, sort } = searchParams;
+    const breeds = searchParams.get('breeds');
+    const zipCodes = searchParams.get('zipCodes');
+    const ageMin = searchParams.get('ageMin');
+    const ageMax = searchParams.get('ageMax');
+    const size = searchParams.get('size');
+    const sort = searchParams.get('breeds');
+    const from = searchParams.get('breeds');
     try {
-      const response = await fetch(searchParams ? `${process.env.REACT_APP_BASE_URL}/dogs/search?${searchParams}` : `${process.env.REACT_APP_BASE_URL}/dogs/search`, {
-        method: 'GET',
-        headers: {
-          'fetch-api-key': process.env.REACT_APP_API_KEY,
-        },
-        credentials: 'include',
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_BASE_URL}/dogs/search?${breeds && `breeds=${breeds}`}&&${
+          zipCodes && `zipCodes=${zipCodes}&${ageMin && `ageMin=${ageMin}`}&${ageMax && `ageMax=${ageMax}`}`
+        }&${size && `size=${size}&${sort && `sort=${sort}&${from && `from=${from}`}`}`}`,
+        {
+          method: 'GET',
+          headers: {
+            'fetch-api-key': process.env.REACT_APP_API_KEY,
+          },
+          credentials: 'include',
+        }
+      );
 
       if (!response.ok) {
         throw new Error('Failed to execute search fetch!');

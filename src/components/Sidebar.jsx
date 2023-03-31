@@ -2,8 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { useMediaQuery, Box, Divider, Typography, FormControl, Input, InputLabel, Button, Select, MenuItem } from '@mui/material';
 import RangeSlider from './RangeSlider';
 
-const Sidebar = () => {
-  const [breedList, setBreedList] = useState([]);
+let breedList;
+
+const Sidebar = ({ setSearchParams }) => {
+  const [error, setError] = useState(false);
+  const [searchTerms, setSearchTerms] = useState({
+    breeds: '',
+    zipCodes: '',
+    ageMin: 0,
+    ageMax: 20,
+    size: '',
+    sort: '',
+    from: '',
+  });
   const isNonMobile = useMediaQuery('(min-width: 580px)');
 
   useEffect(() => {
@@ -18,7 +29,7 @@ const Sidebar = () => {
         });
 
         const data = await response.json();
-        setBreedList(data);
+        breedList = data;
       } catch (err) {
         console.error(err);
       }
@@ -26,17 +37,42 @@ const Sidebar = () => {
 
     fetchBreedList();
   }, []);
+
+  const searchChangeHandler = e => {
+    const { name, value } = e.target;
+    setSearchTerms(prev => ({ ...prev, [name]: value }));
+  };
+
+  const searchSubmitHandler = e => {
+    setError(false);
+    e.preventDefault();
+    if (searchTerms.zipCodes.trim().length !== 5 && searchTerms.zipCodes.trim().length > 0) {
+      setError(true);
+      return;
+    }
+    let searchParams = {};
+
+    for (let key in searchTerms) {
+      if (searchTerms[key] !== '') {
+        searchParams[key] = searchTerms[key];
+      }
+    }
+
+    console.log(searchParams);
+    setSearchParams(searchParams);
+  };
+
   return (
     <Box component='aside' width={isNonMobile ? '30%' : '100%'} border='1px solid rgb(0, 0, 128)' backgroundColor='rgb(240, 234, 214)' p={1}>
       <Typography component='h3' variant='h6' color='rgb(0, 0, 128)'>
         Search
       </Typography>
       <Divider />
-      <Box component='form' onSubmit='' mt={4} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
+      <Box component='form' onSubmit={searchSubmitHandler} mt={4} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
         <FormControl sx={{ backgroundColor: 'white' }} fullWidth>
-          <InputLabel htmlFor='breed'>Breed</InputLabel>
-          <Select labelId='breed' value='' label='Breed'>
-            {breedList.map((breed, index) => (
+          <InputLabel htmlFor='breeds'>Breeds</InputLabel>
+          <Select name='breeds' onChange={searchChangeHandler} labelId='breeds' value={searchTerms.breeds} label='Breed'>
+            {breedList?.map((breed, index) => (
               <MenuItem key={`${breed}: ${index}`} value={breed}>
                 {breed}
               </MenuItem>
@@ -45,19 +81,20 @@ const Sidebar = () => {
         </FormControl>
         <FormControl variant='standard' sx={{ backgroundColor: 'white', borderRadius: '.25rem .25rem 0 0' }} fullWidth>
           <InputLabel htmlFor='zip'>Zip Code</InputLabel>
-          <Input id='zip' name='zip' type='text' pattern='[0-9]*' sx={{ fontSize: '.9rem' }} />
+          <Input onChange={searchChangeHandler} id='zip' name='zipCodes' type='number' sx={{ fontSize: '.9rem' }} />
+          {error && <Typography sx={{ color: 'red', fontSize: '.75rem' }}>Zip Code must be exactly 5 digits</Typography>}
         </FormControl>
         <Box mt={3} width={'100%'} border='1px solid rgb(0, 0, 128)' backgroundColor='white' p={3} borderRadius='1.25rem'>
           <Typography component='p' variant='body1'>
             Age Range
           </Typography>
-          <RangeSlider />
+          <RangeSlider value={[searchTerms.ageMin, searchTerms.ageMax]} setSearchTerms={setSearchTerms} />
         </Box>
         <Button
           variant='contained'
           type='submit'
           sx={{ mt: 3, backgroundColor: 'rgb(0, 0, 128)', color: 'rgb(240, 234, 214)', fontWeight: 'bold', '&:hover': { backgroundColor: 'rgb(0, 0, 100)' } }}>
-          Enter Website
+          Search
         </Button>
       </Box>
     </Box>
