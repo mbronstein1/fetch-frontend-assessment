@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useMediaQuery, Box, Divider, Typography, FormControl, Input, InputLabel, Button, Select, MenuItem } from '@mui/material';
 import RangeSlider from './RangeSlider';
+import { runFireworks } from '../lib/confetti';
 
 let breedList;
 const resultsPaginationNumber = [5, 10, 15, 20, 25];
@@ -124,6 +125,7 @@ const Sidebar = ({ setSearchParams, setIsModalOpen, setMatch, favoritesList, set
       console.log(matchData[0]);
       setMatch(matchData[0]);
       setIsModalOpen(true);
+      runFireworks();
     } catch (err) {
       console.error(err);
       setMatchError({ bool: true, message: err.message });

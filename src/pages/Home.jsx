@@ -36,7 +36,7 @@ const Home = () => {
         {!isLoading && !error && dogData && <Main favoritesList={favoritesList} setFavoritesList={setFavoritesList} dogData={dogData} paginationData={searchData} />}
       </Box>
 
-      <MatchModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      <MatchModal matchData={match} isMatchLoading={isMatchLoading} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
     </>
   );
 };
