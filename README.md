@@ -26,6 +26,12 @@ If you wish to run this app on your local machine, use the following steps (you 
 
 ## Usage
 
+> Warning: If using Safari as your browser (mobile or desktop), be sure to adjust your privacy settings to allow cookies and cross-site trafficking. The backend sends an HTTPOnly cookie w/ a JSON web token and Safari's default setting is to prevent cross-site trafficking. Be sure to:
+>
+> - Go to settings
+> - Go Privacy tab (Security and Privacy on iPhones and iPads)
+> - Disable both "Block All Cookies" and "Prevent Cross-Site Tracking"
+
 After running the application, you will be presented with a login page. Feel free to input any name and email address you like, as long as they are formatted correctly.
 
 ![Login page](./src/assets/login-screenshot.png)
