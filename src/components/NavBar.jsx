@@ -10,6 +10,7 @@ import Auth from '../utils/auth';
 export default function ButtonAppBar() {
   const navigate = useNavigate();
 
+  // Logout user with backend and execute logout method to remove items from local storage
   const logoutHandler = async () => {
     try {
       await fetch(`${process.env.REACT_APP_BASE_URL}/auth/logout`, {

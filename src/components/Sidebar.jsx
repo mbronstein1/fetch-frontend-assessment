@@ -26,6 +26,7 @@ const sortInfo = [
 ];
 
 const Sidebar = ({ setFavoritesList, setSearchParams, setIsModalOpen, setMatch, favoritesList, setIsMatchLoading }) => {
+  // State management
   const [error, setError] = useState(false);
   const [matchError, setMatchError] = useState({ bool: false, message: '' });
   const [searchTerms, setSearchTerms] = useState({
@@ -39,6 +40,7 @@ const Sidebar = ({ setFavoritesList, setSearchParams, setIsModalOpen, setMatch, 
   const isNonMobile = useMediaQuery('(min-width: 580px)');
   const navigate = useNavigate();
 
+  // On initial mount, fetch list of breeds and store in breedList variable
   useEffect(() => {
     const fetchBreedList = async () => {
       try {
@@ -60,6 +62,7 @@ const Sidebar = ({ setFavoritesList, setSearchParams, setIsModalOpen, setMatch, 
     fetchBreedList();
   }, []);
 
+  // Form management
   const searchChangeHandler = e => {
     const { name, value } = e.target;
     setSearchTerms(prev => ({ ...prev, [name]: value }));
@@ -72,18 +75,23 @@ const Sidebar = ({ setFavoritesList, setSearchParams, setIsModalOpen, setMatch, 
       setError(true);
       return;
     }
+
     let searchParams = {};
 
+    // Loop through searchTerms object and push anything that isn't empty into the searchParams obj
     for (let key in searchTerms) {
       if (searchTerms[key] !== '') {
         searchParams[key] = searchTerms[key];
       }
     }
 
+    // set the search params to the passed object
     setSearchParams(searchParams);
   };
 
+  // Submit handler for matching favorited dogs
   const matchSubmitHandler = async () => {
+    // Validation to make sure a request isnt sent with an empty array
     if (favoritesList.length === 0) {
       setMatchError({ bool: true, message: 'Please favorite at least one dog before being matched!' });
       return;
@@ -92,6 +100,7 @@ const Sidebar = ({ setFavoritesList, setSearchParams, setIsModalOpen, setMatch, 
     setMatchError({ bool: false, message: '' });
     setIsMatchLoading(true);
     try {
+      // Send match array and receive response of randomly matched ID
       const response = await fetch(`${process.env.REACT_APP_BASE_URL}/dogs/match`, {
         method: 'POST',
         body: JSON.stringify(favoritesList),
@@ -108,6 +117,7 @@ const Sidebar = ({ setFavoritesList, setSearchParams, setIsModalOpen, setMatch, 
 
       const data = await response.json();
 
+      // Send request w/ ID to get dog data
       const matchResponse = await fetch(`${process.env.REACT_APP_BASE_URL}/dogs`, {
         method: 'POST',
         headers: {
@@ -134,6 +144,7 @@ const Sidebar = ({ setFavoritesList, setSearchParams, setIsModalOpen, setMatch, 
     setIsMatchLoading(false);
   };
 
+  // Logic to clear search terms
   const clearButtonHandler = () => {
     navigate('/dogs');
     setSearchTerms({

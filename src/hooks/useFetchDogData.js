@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 
+// Custom hook that manages fetching dog information
 const useFetchDogData = () => {
   const [searchData, setSearchData] = useState();
   const [dogData, setDogData] = useState([]);
@@ -9,34 +10,40 @@ const useFetchDogData = () => {
   const fetchDogData = useCallback(async searchParams => {
     setIsLoading(true);
     setError(null);
-    const breeds = searchParams.get('breeds') || 'Affenpinscher';
-    const zipCodes = searchParams.get('zipCodes') || null;
-    const ageMin = searchParams.get('ageMin');
-    const ageMax = searchParams.get('ageMax');
-    const size = searchParams.get('size');
-    const sort = searchParams.get('sort');
-    const from = searchParams.get('from');
+
+    let url = `${process.env.REACT_APP_BASE_URL}/dogs/search?`;
+    // If no breeds in params, set breeds=Affenpinscher (the first breed)
+    if (!searchParams.get('breeds')) {
+      url += 'breeds=Affenpinscher&';
+    }
+
+    // Loop through each query param and concat to url
+    searchParams.forEach((value, key) => {
+      url += `${key}=${value}&`;
+      console.log(`${key} -> ${value}`);
+    });
+    // remove & off the end of url
+    url = url.substring(0, url.length - 1);
+
+    // Fetch dog data based on search params
     try {
-      const response = await fetch(
-        `${process.env.REACT_APP_BASE_URL}/dogs/search?${breeds && `breeds=${breeds}`}&${zipCodes && `zipCodes=${zipCodes}`}&${ageMin && `ageMin=${ageMin}`}&${
-          ageMax && `ageMax=${ageMax}`
-        }&${size && `size=${size}`}&${sort && `sort=${sort}`}&${from && `from=${from}`}`,
-        {
-          method: 'GET',
-          headers: {
-            'fetch-api-key': process.env.REACT_APP_API_KEY,
-          },
-          credentials: 'include',
-        }
-      );
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'fetch-api-key': process.env.REACT_APP_API_KEY,
+        },
+        credentials: 'include',
+      });
+      console.log(response);
 
       if (!response.ok) {
         throw new Error('Failed to execute search fetch!');
       }
-      
+
       const data = await response.json();
       setSearchData(data);
 
+      // Find dog data based on returned id's
       const dogResponse = await fetch(`${process.env.REACT_APP_BASE_URL}/dogs`, {
         method: 'POST',
         headers: {

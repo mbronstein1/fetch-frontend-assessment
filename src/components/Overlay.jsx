@@ -2,6 +2,7 @@ import React from 'react';
 import { Box } from '@mui/material';
 
 const Overlay = () => {
+  // Overlay for video
   return (
     <Box
       component='div'

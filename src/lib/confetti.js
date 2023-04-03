@@ -1,5 +1,6 @@
 import confetti from 'canvas-confetti';
 
+// Fireworks animation for successful match!
 export const runFireworks = () => {
   const duration = 5 * 1000;
   const animationEnd = Date.now() + duration;

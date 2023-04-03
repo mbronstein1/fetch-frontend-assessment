@@ -11,11 +11,13 @@ import Auth from '../utils/auth';
 const Login = () => {
   const navigate = useNavigate();
 
+  // State management
   const [formState, setFormState] = useState({ name: '', email: '' });
   const [errorState, setErrorState] = useState({ nameError: false, emailError: false });
   const [errorMsg, setErrorMsg] = useState('');
   const isNonMobile = useMediaQuery('(min-width: 360px)');
 
+  // useEffect to check if user exists, if so redirect to home page
   useEffect(() => {
     const user = Auth.getUser();
     if (user) {
@@ -23,6 +25,7 @@ const Login = () => {
     }
   }, [navigate]);
 
+  // Form management
   const inputChangeHandler = e => {
     const { name, value } = e.target;
     setErrorState(prev => ({ ...prev, [name + 'Error']: false }));
@@ -43,6 +46,7 @@ const Login = () => {
 
   const formSubmitHandler = async e => {
     e.preventDefault();
+    // Form Validation
     if (errorState.nameError || errorState.emailError) {
       setErrorMsg('Please complete both fields before submitting');
       return;

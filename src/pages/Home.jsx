@@ -7,6 +7,7 @@ import useFetchDogData from '../hooks/useFetchDogData';
 import MatchModal from '../components/Modal';
 
 const Home = () => {
+  // State management
   const { isLoading, error, dogData, fetchDogData, searchData } = useFetchDogData();
   const [favoritesList, setFavoritesList] = useState([]);
   const [match, setMatch] = useState();
@@ -15,6 +16,7 @@ const Home = () => {
   const isNonMobile = useMediaQuery('(min-width: 580px)');
   const [searchParams, setSearchParams] = useSearchParams();
 
+  // Each time component updates w/ new searchParams, re-run this function
   useEffect(() => {
     fetchDogData(searchParams);
   }, [fetchDogData, searchParams]);

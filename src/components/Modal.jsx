@@ -14,6 +14,7 @@ const modalStyle = {
   boxShadow: 24,
 };
 
+// Modal component for matches
 const MatchModal = ({ isModalOpen, setIsModalOpen, matchData, isMatchLoading }) => {
   const isNonMobile = useMediaQuery('(min-width: 440px)');
   const handleClose = () => {

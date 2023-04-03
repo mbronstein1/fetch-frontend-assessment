@@ -4,6 +4,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 const DogCard = ({ favoritesList, setFavoritesList, dogData: { id, age, breed, img, name, zip_code } }) => {
+  // Toggle favorites -> if id exists, remove it; else add it to the favoritesList
   const favoritesHandler = e => {
     if (favoritesList.includes(id)) {
       const newFavorites = favoritesList.filter(favorite => favorite !== id);

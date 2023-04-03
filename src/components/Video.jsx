@@ -2,6 +2,7 @@ import { Box } from '@mui/material';
 import React from 'react';
 import video from '../assets/Dogs-video_480.mov';
 
+// Background video
 const Video = () => {
   return (
     <Box

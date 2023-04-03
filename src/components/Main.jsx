@@ -8,6 +8,7 @@ const Main = ({ favoritesList, setFavoritesList, dogData, paginationData }) => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
+  // Logic in useEffect to disable next button if at the last page
   useEffect(() => {
     const from = +searchParams.get('from');
     const size = +searchParams.get('size');
@@ -24,6 +25,7 @@ const Main = ({ favoritesList, setFavoritesList, dogData, paginationData }) => {
     disabledButton();
   }, [searchParams, paginationData]);
 
+  // Logic to change pages w/ prev and next buttons
   const changePageHandler = e => {
     const splitPath = paginationData[e.target.name].split('/search');
     const urlPath = splitPath.join('');

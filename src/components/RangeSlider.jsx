@@ -5,7 +5,7 @@ import Slider from '@mui/material/Slider';
 const valuetext = value => {
   return `${value} year(s) old`;
 };
-
+// MUI range slider
 const RangeSlider = ({ value, setSearchTerms }) => {
   const handleChange = (event, newValue) => {
     setSearchTerms(prev => ({ ...prev, ageMin: newValue[0], ageMax: newValue[1] }));
