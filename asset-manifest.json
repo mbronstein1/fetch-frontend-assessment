@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/fetch-frontend-assessment/static/css/main.a2efc346.css",
-    "main.js": "/fetch-frontend-assessment/static/js/main.3586da70.js",
+    "main.js": "/fetch-frontend-assessment/static/js/main.dd8e651f.js",
     "static/media/Dogs-video_480.mov": "/fetch-frontend-assessment/static/media/Dogs-video_480.7f4cf3cd5e19e6d558d4.mov",
     "static/media/fetch-logo.gif": "/fetch-frontend-assessment/static/media/fetch-logo.c4df5ba854833edcb1c0.gif",
     "index.html": "/fetch-frontend-assessment/index.html",
     "main.a2efc346.css.map": "/fetch-frontend-assessment/static/css/main.a2efc346.css.map",
-    "main.3586da70.js.map": "/fetch-frontend-assessment/static/js/main.3586da70.js.map"
+    "main.dd8e651f.js.map": "/fetch-frontend-assessment/static/js/main.dd8e651f.js.map"
   },
   "entrypoints": [
     "static/css/main.a2efc346.css",
-    "static/js/main.3586da70.js"
+    "static/js/main.dd8e651f.js"
   ]
 }
