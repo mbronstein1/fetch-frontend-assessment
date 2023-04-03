@@ -22,7 +22,14 @@ const Home = () => {
   return (
     <>
       <Box sx={{ display: 'flex', flexDirection: isNonMobile ? 'row' : 'column', flex: '1 1 auto', textAlign: 'center', p: 1, gap: '1rem' }}>
-        <Sidebar setIsMatchLoading={setIsMatchLoading} setSearchParams={setSearchParams} setIsModalOpen={setIsModalOpen} setMatch={setMatch} favoritesList={favoritesList} />
+        <Sidebar
+          setFavoritesList={setFavoritesList}
+          setIsMatchLoading={setIsMatchLoading}
+          setSearchParams={setSearchParams}
+          setIsModalOpen={setIsModalOpen}
+          setMatch={setMatch}
+          favoritesList={favoritesList}
+        />
         {isLoading && (
           <Typography component='p' variant='h6' sx={{ marginInline: 'auto' }}>
             Loading...

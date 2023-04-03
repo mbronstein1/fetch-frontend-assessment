@@ -25,7 +25,7 @@ const sortInfo = [
   },
 ];
 
-const Sidebar = ({ setSearchParams, setIsModalOpen, setMatch, favoritesList, setIsMatchLoading }) => {
+const Sidebar = ({ setFavoritesList, setSearchParams, setIsModalOpen, setMatch, favoritesList, setIsMatchLoading }) => {
   const [error, setError] = useState(false);
   const [matchError, setMatchError] = useState({ bool: false, message: '' });
   const [searchTerms, setSearchTerms] = useState({
@@ -202,24 +202,28 @@ const Sidebar = ({ setSearchParams, setIsModalOpen, setMatch, favoritesList, set
             ))}
           </Select>
         </FormControl>
+        <Box display='flex' flexDirection={isNonMobile ? 'column' : 'row'} alignItems='center' justifyContent='center' gap='1rem'>
+          <Button
+            variant='contained'
+            type='submit'
+            sx={{ mt: isNonMobile ? 3 : 0, backgroundColor: 'rgb(0, 0, 128)', color: 'rgb(240, 234, 214)', fontWeight: 'bold', '&:hover': { backgroundColor: 'rgb(0, 0, 100)' } }}>
+            Search
+          </Button>
 
-        <Button
-          variant='contained'
-          type='submit'
-          sx={{ mt: 3, backgroundColor: 'rgb(0, 0, 128)', color: 'rgb(240, 234, 214)', fontWeight: 'bold', '&:hover': { backgroundColor: 'rgb(0, 0, 100)' } }}>
-          Search
-        </Button>
-
-        <Button onClick={clearButtonHandler} variant='outlined' sx={{ color: 'rgb(0, 0, 128)' }}>
-          Clear
-        </Button>
+          <Button onClick={clearButtonHandler} variant='outlined' sx={{ color: 'rgb(0, 0, 128)', fontSize: '.75rem' }}>
+            Clear Search
+          </Button>
+        </Box>
       </Box>
       <Divider sx={{ margin: '1rem' }} />
-      <Box>
+      <Box display='flex' flexDirection={isNonMobile ? 'column' : 'row'} alignItems='center' justifyContent='center' gap='1rem' mb='1rem'>
         <Button onClick={matchSubmitHandler} variant='contained' sx={{ backgroundColor: 'rgb(244,153,50)', '&:hover': { backgroundColor: 'rgb(244,135,50)' } }}>
           MATCH!
         </Button>
         {matchError.bool && <Typography sx={{ color: 'red', fontSize: '.75rem', p: '.5rem' }}>{matchError.message}</Typography>}
+        <Button onClick={() => setFavoritesList([])} variant='outlined' sx={{ fontSize: '.7rem', color: 'rgb(244,153,50)', borderColor: 'rgb(244,153,50)' }}>
+          Clear Favorites
+        </Button>
       </Box>
     </Box>
   );

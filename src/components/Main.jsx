@@ -1,4 +1,4 @@
-import { Box, Button } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import DogCard from './DogCard';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -32,24 +32,30 @@ const Main = ({ favoritesList, setFavoritesList, dogData, paginationData }) => {
 
   return (
     <Box width='100%' component='main'>
-      <Button name='prev' onClick={changePageHandler} disabled={!paginationData?.prev}>
-        Prev
-      </Button>
-      <Button name='next' onClick={changePageHandler} disabled={isNextDisabled}>
-        Next
-      </Button>
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
-        {dogData.map(data => (
-          <DogCard key={data.id} dogData={data} favoritesList={favoritesList} setFavoritesList={setFavoritesList} />
-        ))}
-      </Box>
+      {dogData.length === 0 ? (
+        <Typography sx={{ marginInline: 'auto' }}>There are no dogs that match your search terms</Typography>
+      ) : (
+        <>
+          <Button name='prev' onClick={changePageHandler} disabled={!paginationData?.prev}>
+            Prev
+          </Button>
+          <Button name='next' onClick={changePageHandler} disabled={isNextDisabled}>
+            Next
+          </Button>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+            {dogData.map(data => (
+              <DogCard key={data.id} dogData={data} favoritesList={favoritesList} setFavoritesList={setFavoritesList} />
+            ))}
+          </Box>
 
-      <Button name='prev' onClick={changePageHandler} disabled={!paginationData?.prev}>
-        Prev
-      </Button>
-      <Button name='next' onClick={changePageHandler} disabled={isNextDisabled}>
-        Next
-      </Button>
+          <Button name='prev' onClick={changePageHandler} disabled={!paginationData?.prev}>
+            Prev
+          </Button>
+          <Button name='next' onClick={changePageHandler} disabled={isNextDisabled}>
+            Next
+          </Button>
+        </>
+      )}
     </Box>
   );
 };
