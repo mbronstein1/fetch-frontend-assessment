@@ -81,7 +81,14 @@ const Sidebar = ({ setSearchParams }) => {
   };
 
   return (
-    <Box component='aside' width={isNonMobile ? '30%' : '100%'} border='1px solid rgb(0, 0, 128)' backgroundColor='rgb(240, 234, 214)' p={1}>
+    <Box
+      component='aside'
+      height
+      sx={isNonMobile && { position: 'sticky', top: 0 }}
+      width={isNonMobile ? '30%' : '100%'}
+      border='1px solid rgb(0, 0, 128)'
+      backgroundColor='rgb(240, 234, 214)'
+      p={1}>
       <Typography component='h3' variant='title' color='rgb(0, 0, 128)'>
         Search
       </Typography>
