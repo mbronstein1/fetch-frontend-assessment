@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 
 const useFetchDogData = () => {
+  const [searchData, setSearchData] = useState();
   const [dogData, setDogData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -8,8 +9,8 @@ const useFetchDogData = () => {
   const fetchDogData = useCallback(async searchParams => {
     setIsLoading(true);
     setError(null);
-    const breeds = searchParams.get('breeds');
-    const zipCodes = searchParams.get('zipCodes');
+    const breeds = searchParams.get('breeds') || 'Affenpinscher';
+    const zipCodes = searchParams.get('zipCodes') || null;
     const ageMin = searchParams.get('ageMin');
     const ageMax = searchParams.get('ageMax');
     const size = searchParams.get('size');
@@ -34,6 +35,7 @@ const useFetchDogData = () => {
       }
       console.log(response);
       const data = await response.json();
+      setSearchData(data);
       console.log(data);
 
       const dogResponse = await fetch(`${process.env.REACT_APP_BASE_URL}/dogs`, {
@@ -64,6 +66,7 @@ const useFetchDogData = () => {
     error,
     dogData,
     fetchDogData,
+    searchData,
   };
 };
 

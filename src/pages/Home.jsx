@@ -6,7 +6,7 @@ import Sidebar from '../components/Sidebar';
 import useFetchDogData from '../hooks/useFetchDogData';
 
 const Home = () => {
-  const { isLoading, error, dogData, fetchDogData } = useFetchDogData();
+  const { isLoading, error, dogData, fetchDogData, searchData } = useFetchDogData();
   const [isFavorite, setIsFavorite] = useState([]);
   const isNonMobile = useMediaQuery('(min-width: 580px)');
   const [searchParams, setSearchParams] = useSearchParams();
@@ -14,6 +14,8 @@ const Home = () => {
   useEffect(() => {
     fetchDogData(searchParams);
   }, [fetchDogData, searchParams]);
+
+  console.log('from home', searchData);
 
   return (
     <Box sx={{ display: 'flex', flexDirection: isNonMobile ? 'row' : 'column', flex: '1 1 auto', textAlign: 'center', p: 1, gap: '1rem' }}>
@@ -28,7 +30,7 @@ const Home = () => {
           {error}
         </Typography>
       )}
-      {!isLoading && !error && dogData && <Main isFavorite={isFavorite} setIsFavorite={setIsFavorite} dogData={dogData} />}
+      {!isLoading && !error && dogData && <Main isFavorite={isFavorite} setIsFavorite={setIsFavorite} dogData={dogData} paginationData={searchData} />}
     </Box>
   );
 };
