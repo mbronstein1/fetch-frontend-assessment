@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useMediaQuery, Box, Divider, Typography, FormControl, Input, InputLabel, Button, Select, MenuItem } from '@mui/material';
 import RangeSlider from './RangeSlider';
 import { runFireworks } from '../lib/confetti';
@@ -34,9 +35,9 @@ const Sidebar = ({ setSearchParams, setIsModalOpen, setMatch, favoritesList, set
     ageMax: 20,
     size: '',
     sort: '',
-    from: '',
   });
   const isNonMobile = useMediaQuery('(min-width: 580px)');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBreedList = async () => {
@@ -133,6 +134,18 @@ const Sidebar = ({ setSearchParams, setIsModalOpen, setMatch, favoritesList, set
     setIsMatchLoading(false);
   };
 
+  const clearButtonHandler = () => {
+    navigate('/dogs');
+    setSearchTerms({
+      breeds: '',
+      zipCodes: '',
+      ageMin: 0,
+      ageMax: 20,
+      size: '',
+      sort: '',
+    });
+  };
+
   return (
     <Box
       component='aside'
@@ -159,7 +172,7 @@ const Sidebar = ({ setSearchParams, setIsModalOpen, setMatch, favoritesList, set
         </FormControl>
         <FormControl variant='standard' sx={{ backgroundColor: 'white', borderRadius: '.25rem .25rem 0 0' }} fullWidth>
           <InputLabel htmlFor='zip'>Zip Code</InputLabel>
-          <Input onChange={searchChangeHandler} id='zip' name='zipCodes' type='number' sx={{ fontSize: '.9rem' }} />
+          <Input onChange={searchChangeHandler} id='zip' value={searchTerms.zipCodes} name='zipCodes' type='number' sx={{ fontSize: '.9rem' }} />
           {error && <Typography sx={{ color: 'red', fontSize: '.75rem' }}>Zip Code must be exactly 5 digits</Typography>}
         </FormControl>
         <Box mt={3} width={'100%'} border='1px solid rgb(0, 0, 128)' backgroundColor='white' p={3} borderRadius='1.25rem'>
@@ -195,6 +208,10 @@ const Sidebar = ({ setSearchParams, setIsModalOpen, setMatch, favoritesList, set
           type='submit'
           sx={{ mt: 3, backgroundColor: 'rgb(0, 0, 128)', color: 'rgb(240, 234, 214)', fontWeight: 'bold', '&:hover': { backgroundColor: 'rgb(0, 0, 100)' } }}>
           Search
+        </Button>
+
+        <Button onClick={clearButtonHandler} variant='outlined' sx={{ color: 'rgb(0, 0, 128)' }}>
+          Clear
         </Button>
       </Box>
       <Divider sx={{ margin: '1rem' }} />
