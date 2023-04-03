@@ -150,7 +150,7 @@ const Sidebar = ({ setFavoritesList, setSearchParams, setIsModalOpen, setMatch, 
     <Box
       component='aside'
       height
-      sx={isNonMobile && { position: 'sticky', top: 0 }}
+      sx={{ position: isNonMobile && 'sticky', top: isNonMobile && 0 }}
       width={isNonMobile ? '30%' : '100%'}
       border='1px solid rgb(0, 0, 128)'
       backgroundColor='rgb(240, 234, 214)'
