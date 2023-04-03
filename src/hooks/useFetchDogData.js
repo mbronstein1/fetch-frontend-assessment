@@ -33,10 +33,9 @@ const useFetchDogData = () => {
       if (!response.ok) {
         throw new Error('Failed to execute search fetch!');
       }
-      console.log(response);
+      
       const data = await response.json();
       setSearchData(data);
-      console.log(data);
 
       const dogResponse = await fetch(`${process.env.REACT_APP_BASE_URL}/dogs`, {
         method: 'POST',

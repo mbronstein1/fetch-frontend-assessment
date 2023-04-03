@@ -15,8 +15,6 @@ const Home = () => {
     fetchDogData(searchParams);
   }, [fetchDogData, searchParams]);
 
-  console.log('from home', searchData);
-
   return (
     <Box sx={{ display: 'flex', flexDirection: isNonMobile ? 'row' : 'column', flex: '1 1 auto', textAlign: 'center', p: 1, gap: '1rem' }}>
       <Sidebar setSearchParams={setSearchParams} />

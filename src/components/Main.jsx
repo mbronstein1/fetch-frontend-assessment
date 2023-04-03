@@ -26,7 +26,6 @@ const Main = ({ isFavorite, setIsFavorite, dogData, paginationData }) => {
 
   const changePageHandler = e => {
     const splitPath = paginationData[e.target.name].split('/search');
-    console.log(splitPath);
     const urlPath = splitPath.join('');
     navigate(urlPath);
   };

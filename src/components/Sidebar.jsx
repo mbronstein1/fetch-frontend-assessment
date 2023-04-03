@@ -4,8 +4,24 @@ import RangeSlider from './RangeSlider';
 
 let breedList;
 const resultsPaginationNumber = [5, 10, 15, 20, 25];
-const sortBy = ['age by ascending', 'age by descending', 'name by ascending', 'name by descending'];
-const sortValue = ['age:asc', 'age:desc', 'name:asc', 'name:desc'];
+const sortInfo = [
+  {
+    label: 'Ascending by age',
+    value: 'age:asc',
+  },
+  {
+    label: 'Descending by age',
+    value: 'age:desc',
+  },
+  {
+    label: 'Ascending by name',
+    value: 'name:asc',
+  },
+  {
+    label: 'Descending by name',
+    value: 'name:desc',
+  },
+];
 
 const Sidebar = ({ setSearchParams }) => {
   const [error, setError] = useState(false);
@@ -106,9 +122,9 @@ const Sidebar = ({ setSearchParams }) => {
         <FormControl variant='standard' sx={{ backgroundColor: 'white' }} fullWidth>
           <InputLabel htmlFor='sort'>Sort By</InputLabel>
           <Select name='sort' onChange={searchChangeHandler} labelId='sort' value={searchTerms.sort} label='Sort'>
-            {sortBy.map((sortItem, i) => (
-              <MenuItem key={sortItem} value={sortValue[i]}>
-                {sortItem}
+            {sortInfo.map((sortItem, i) => (
+              <MenuItem key={sortItem.value} value={sortItem.value}>
+                {sortItem.label}
               </MenuItem>
             ))}
           </Select>
