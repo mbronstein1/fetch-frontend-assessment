@@ -13,7 +13,7 @@ const Main = ({ isFavorite, setIsFavorite, dogData, paginationData }) => {
     const size = +searchParams.get('size');
 
     const disabledButton = async () => {
-      const totalData = await paginationData.total;
+      const totalData = await paginationData?.total;
       if (size + from >= totalData) {
         setIsNextDisabled(true);
       } else {

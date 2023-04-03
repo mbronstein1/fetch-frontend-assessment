@@ -19,7 +19,7 @@ const Home = () => {
     <Box sx={{ display: 'flex', flexDirection: isNonMobile ? 'row' : 'column', flex: '1 1 auto', textAlign: 'center', p: 1, gap: '1rem' }}>
       <Sidebar setSearchParams={setSearchParams} />
       {isLoading && (
-        <Typography component='p' variant='h6'>
+        <Typography component='p' variant='h6' sx={{ marginInline: 'auto' }}>
           Loading...
         </Typography>
       )}
