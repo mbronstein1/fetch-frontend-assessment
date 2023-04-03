@@ -5,6 +5,7 @@
 - [Description](#description)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Technologies Used](#technologies-used)
 
 ## Description
 
@@ -14,78 +15,44 @@ Your next best friend is waiting. Visit [this link](https://mbronstein1.github.i
 
 ## Installation
 
-In order to use our app, simply go to the following link: https://infinite-river-93616.herokuapp.com/
-
-If by any chance you wish to deploy this app on your local machine, use the following steps (you must have MySQL, Node.js, and MySQL workbench installed on your machine):
+If you wish to run this app on your local machine, use the following steps (you must have Node.js installed and have a Fetch-provided API key):
 
 - Clone this repo to your machine
 - Install all dependencies
-- In MySQL source the db schema file
-- Use MySQL workbench to import csv to movies table
-- Start the app using `npm run start` or a similar command
+- Create a `.env.local` file with the following:
+  - `REACT_APP_BASE_URL=https://frontend-take-home-service.fetch.com`
+  - `REACT_APP_API_KEY= <Fetch-provided API key>`
+- Start the app using `npm run start`
 
 ## Usage
 
-When the app is deployed you will begin on the home page. Here you can see the navigation bar, a brief overview of our app, and a Browse Movie Collection button. Click the Browse button to see the catalog.
+After running the application, you will be presented with a login page. Feel free to input any name and email address you like, as long as they are formatted correctly.
 
-![GIF of homepage and browse](./assets/Home%20gif.gif)
+![Login page](./src/assets/login-screenshot.png)
 
-If you are not logged in, your functionality is limited to perusing the browse page slideshow and viewing a variety of movie details when you click a movie image.
+When you log in, you will be taken to the search page with a list of dogs already loaded for your perusal. Use the search bar on the right (or at the top on mobile) to narrow your search. Search by breed, zip code and age, as well as configure your search by number of items per page and sort by age or name.
 
-If you wish to get full access to the site, click the Login link in the navigation bar. You will also be redirected to the Login page if you try to perform an action limited to registered users such as viewing the My Collection page, attempting to save a movie to your collection, or performing a customized genre or movie title search.
+At any time, you can clear your search with the 'Clear Search' button and start over!
 
-You can use the following test user to log in:
+![Home page](./src/assets/homepage-screenshot.png)
 
-- email: test5@test.com
-- password: 12345678
+![Search results](./src/assets/search-screenshot.png)
 
-![GIF of logging in](./assets/Login%20gif.gif)
+Each dog card has a little heart in the lower corner, so you can keep track of your favorites! These favorites will be used to find a match for you! Be careful not to refresh the page though, as you will lose your favorites. Of course, future development would include storing favorites in local storage so you can always keep track of your favorites, as well as creating a favorites page where you can view ALL your favorite pups!
 
-When you are logged in you can perform a custom search on the Browse page by using the search forms on the left side of the page. You can use one criteria in a search. Your search results are populated in the space to the right.
+![Favorites](./src/assets/favorites-screenshot.png)
 
-![GIF of genre search](./assets/Genre%20search%20gif.gif)
+Finally when you are finished adding favorites, click the 'MATCH!' button at the bottom of the search bar to be matched with a new furry friend! You can match as many times as you like, and if you'd like to start over, click the "Clear Favorites" button and create a whole new list of favorites!
 
-When the search results appear, clicking on a result will launch the movie details modal. A variety of details are present to help inform you about the movie. Click the Save to My Collection button at the bottom of the modal to save the movie to your collection.
+![Matched Pup](./src/assets/match-screenshot.png)
 
-![GIF of search result and save to collection](./assets/Save%20to%20favorites.gif)
+When you are all finished, you can log out in the top right corner.
 
-To view your collection, head over to the My Collection page via the navigation bar. Here we diplay your saved movie collection. You can click on each item and view the movie modal details modal. On this modal, you have the ability to remove the movie from your collection by clicking the Remove from My Collection button. Changes are displayed immediately.
+## Technologies Used
 
-![GIF of My Collection page and removing from collection](./assets/Collection.gif)
+This is a frontend application that makes calls to the Fetch API. The following frontend technologies were used:
 
-When you are all done with your session, logout by clicking the Logout button in the navigation bar. Your collection will remain intact on your next visit. Enjoy!
-
-![GIF of logging out](./assets/Logout.gif)
-
-## Credits
-
-Brought to you by the following certified couch potatoes:
-
-- Matthew Bronstein: [mbronstein1](https://github.com/mbronstein1)
-- David Byrd: [methyl8](https://github.com/methyl8)
-- Brendon Jiang: [JBrendon15](https://github.com/JBrendon15)
-- Jared Johnson: [nolacoder](https://github.com/nolacoder)
-
-## License
-
-MIT License
-
-Copyright (c) 2022 Couch Potato LLC
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+- React Javascript Framework
+- Material UI component library
+- React Router
+- Canvas Confetti NPM package
