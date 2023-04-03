@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import DogCard from './DogCard';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
-const Main = ({ isFavorite, setIsFavorite, dogData, paginationData }) => {
+const Main = ({ favoritesList, setFavoritesList, dogData, paginationData }) => {
   const [isNextDisabled, setIsNextDisabled] = useState(false);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -40,7 +40,7 @@ const Main = ({ isFavorite, setIsFavorite, dogData, paginationData }) => {
       </Button>
       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
         {dogData.map(data => (
-          <DogCard key={data.id} dogData={data} isFavorite={isFavorite} setIsFavorite={setIsFavorite} />
+          <DogCard key={data.id} dogData={data} favoritesList={favoritesList} setFavoritesList={setFavoritesList} />
         ))}
       </Box>
 

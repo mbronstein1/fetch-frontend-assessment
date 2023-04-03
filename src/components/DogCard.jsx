@@ -3,20 +3,19 @@ import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
-const DogCard = ({ isFavorite, setIsFavorite, dogData: { id, age, breed, img, name, zip_code } }) => {
+const DogCard = ({ favoritesList, setFavoritesList, dogData: { id, age, breed, img, name, zip_code } }) => {
   const favoritesHandler = e => {
-    if (isFavorite.includes(id)) {
-      const newFavorites = isFavorite.filter(favorite => favorite !== id);
-      setIsFavorite(newFavorites);
+    if (favoritesList.includes(id)) {
+      const newFavorites = favoritesList.filter(favorite => favorite !== id);
+      setFavoritesList(newFavorites);
     } else {
-      setIsFavorite(prev => [...prev, id]);
+      setFavoritesList(prev => [...prev, id]);
     }
   };
 
   return (
     <Card sx={{ flex: '1 1 300px' }}>
       <CardMedia component='img' alt={name} height='250' image={img} sx={{ objectFit: 'contain' }} />
-
       <CardContent>
         <Typography gutterBottom variant='h5' component='h3'>
           {name}
@@ -32,7 +31,7 @@ const DogCard = ({ isFavorite, setIsFavorite, dogData: { id, age, breed, img, na
         </Typography>
       </CardContent>
       <CardActions>
-        <Button onClick={favoritesHandler}>{isFavorite.includes(id) ? <FavoriteIcon /> : <FavoriteBorderIcon />}</Button>
+        <Button onClick={favoritesHandler}>{favoritesList.includes(id) ? <FavoriteIcon /> : <FavoriteBorderIcon />}</Button>
       </CardActions>
     </Card>
   );

@@ -4,10 +4,14 @@ import { useSearchParams } from 'react-router-dom';
 import Main from '../components/Main';
 import Sidebar from '../components/Sidebar';
 import useFetchDogData from '../hooks/useFetchDogData';
+import MatchModal from '../components/Modal';
 
 const Home = () => {
   const { isLoading, error, dogData, fetchDogData, searchData } = useFetchDogData();
-  const [isFavorite, setIsFavorite] = useState([]);
+  const [favoritesList, setFavoritesList] = useState([]);
+  const [match, setMatch] = useState();
+  const [isMatchLoading, setIsMatchLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const isNonMobile = useMediaQuery('(min-width: 580px)');
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -16,20 +20,24 @@ const Home = () => {
   }, [fetchDogData, searchParams]);
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: isNonMobile ? 'row' : 'column', flex: '1 1 auto', textAlign: 'center', p: 1, gap: '1rem' }}>
-      <Sidebar setSearchParams={setSearchParams} />
-      {isLoading && (
-        <Typography component='p' variant='h6' sx={{ marginInline: 'auto' }}>
-          Loading...
-        </Typography>
-      )}
-      {error && !isLoading && (
-        <Typography component='p' variant='h6'>
-          {error}
-        </Typography>
-      )}
-      {!isLoading && !error && dogData && <Main isFavorite={isFavorite} setIsFavorite={setIsFavorite} dogData={dogData} paginationData={searchData} />}
-    </Box>
+    <>
+      <Box sx={{ display: 'flex', flexDirection: isNonMobile ? 'row' : 'column', flex: '1 1 auto', textAlign: 'center', p: 1, gap: '1rem' }}>
+        <Sidebar setIsMatchLoading={setIsMatchLoading} setSearchParams={setSearchParams} setIsModalOpen={setIsModalOpen} setMatch={setMatch} favoritesList={favoritesList} />
+        {isLoading && (
+          <Typography component='p' variant='h6' sx={{ marginInline: 'auto' }}>
+            Loading...
+          </Typography>
+        )}
+        {error && !isLoading && (
+          <Typography component='p' variant='h6'>
+            {error}
+          </Typography>
+        )}
+        {!isLoading && !error && dogData && <Main favoritesList={favoritesList} setFavoritesList={setFavoritesList} dogData={dogData} paginationData={searchData} />}
+      </Box>
+
+      <MatchModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+    </>
   );
 };
 

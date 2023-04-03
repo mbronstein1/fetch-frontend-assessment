@@ -23,8 +23,9 @@ const sortInfo = [
   },
 ];
 
-const Sidebar = ({ setSearchParams }) => {
+const Sidebar = ({ setSearchParams, setIsModalOpen, setMatch, favoritesList, setIsMatchLoading }) => {
   const [error, setError] = useState(false);
+  const [matchError, setMatchError] = useState({ bool: false, message: '' });
   const [searchTerms, setSearchTerms] = useState({
     breeds: '',
     zipCodes: '',
@@ -78,6 +79,56 @@ const Sidebar = ({ setSearchParams }) => {
     }
 
     setSearchParams(searchParams);
+  };
+
+  const matchSubmitHandler = async () => {
+    if (favoritesList.length === 0) {
+      setMatchError({ bool: true, message: 'Please favorite at least one dog before being matched!' });
+      return;
+    }
+
+    setMatchError({ bool: false, message: '' });
+    setIsMatchLoading(true);
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/dogs/match`, {
+        method: 'POST',
+        body: JSON.stringify(favoritesList),
+        headers: {
+          'fetch-api-key': process.env.REACT_APP_API_KEY,
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to execute search fetch!');
+      }
+
+      const data = await response.json();
+
+      const matchResponse = await fetch(`${process.env.REACT_APP_BASE_URL}/dogs`, {
+        method: 'POST',
+        headers: {
+          'fetch-api-key': process.env.REACT_APP_API_KEY,
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify([data.match]),
+      });
+
+      if (!matchResponse.ok) {
+        throw new Error('Failed to fetch dogs!');
+      }
+
+      const matchData = await matchResponse.json();
+      console.log(matchData[0]);
+      setMatch(matchData[0]);
+      setIsModalOpen(true);
+    } catch (err) {
+      console.error(err);
+      setMatchError({ bool: true, message: err.message });
+    }
+    setIsMatchLoading(false);
   };
 
   return (
@@ -143,6 +194,13 @@ const Sidebar = ({ setSearchParams }) => {
           sx={{ mt: 3, backgroundColor: 'rgb(0, 0, 128)', color: 'rgb(240, 234, 214)', fontWeight: 'bold', '&:hover': { backgroundColor: 'rgb(0, 0, 100)' } }}>
           Search
         </Button>
+      </Box>
+      <Divider sx={{ margin: '1rem' }} />
+      <Box>
+        <Button onClick={matchSubmitHandler} variant='contained' sx={{ backgroundColor: 'rgb(244,153,50)', '&:hover': { backgroundColor: 'rgb(244,135,50)' } }}>
+          MATCH!
+        </Button>
+        {matchError.bool && <Typography sx={{ color: 'red', fontSize: '.75rem', p: '.5rem' }}>{matchError.message}</Typography>}
       </Box>
     </Box>
   );
