@@ -183,7 +183,7 @@ const Sidebar = ({ setFavoritesList, setSearchParams, setIsModalOpen, setMatch, 
         </Box>
 
         <FormControl variant='standard' sx={{ backgroundColor: 'white' }} fullWidth>
-          <InputLabel htmlFor='size'># of Results</InputLabel>
+          <InputLabel htmlFor='size'>Items per page</InputLabel>
           <Select name='size' onChange={searchChangeHandler} labelId='size' value={searchTerms.size} label='Size'>
             {resultsPaginationNumber.map(number => (
               <MenuItem key={number} value={number}>
